@@ -1,0 +1,716 @@
+
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>🎯 أداة توليد القوائم التفاعلية</title>
+  <style>
+    /* لوحة ألوان العلامة التجارية */
+    :root {
+      --primary-color: #13b981;
+      --primary-light: #1bce92;
+      --primary-dark: #0ea36b;
+      --secondary-color: #f0fdf7;
+      --accent-color: #059669;
+      --text-dark: #1f2937;
+      --text-light: #6b7280;
+      --white: #ffffff;
+      --shadow-light: rgba(19, 185, 129, 0.1);
+      --shadow-medium: rgba(19, 185, 129, 0.2);
+      --shadow-heavy: rgba(19, 185, 129, 0.3);
+      --gradient-primary: linear-gradient(135deg, #13b981 0%, #059669 100%);
+      --gradient-secondary: linear-gradient(135deg, #f0fdf7 0%, #dcfce7 100%);
+      --border-radius: 20px;
+      --border-radius-small: 12px;
+    }
+
+    body {
+      font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--gradient-primary);
+      min-height: 100vh;
+      padding: 2rem;
+      margin: 0;
+      color: var(--text-dark);
+    }
+    
+    .container1 {
+      max-width: 900px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: 0 20px 40px var(--shadow-heavy);
+      backdrop-filter: blur(10px);
+    }
+    
+    .txt {
+      text-align: center;
+      color: var(--primary-dark);
+      margin-bottom: 2rem;
+      font-size: 2.2rem;
+      text-shadow: 0 2px 4px var(--shadow-light);
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    
+    label {
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    
+    input, select, textarea {
+      padding: 0.75rem;
+      border: 2px solid #e1e8ed;
+      border-radius: var(--border-radius-small);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: var(--white);
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px var(--shadow-light);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      font-family: inherit;
+    }
+    
+    .color-input-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-end;
+    }
+    
+    input[type="color"] {
+      width: 50px;
+      height: 42px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    .preset-colors {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .color-preset {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    
+    .color-preset:hover {
+      border-color: var(--text-dark);
+      transform: scale(1.1);
+    }
+    
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .option-card {
+      background: var(--secondary-color);
+      padding: 1rem;
+      border-radius: var(--border-radius-small);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    
+    .option-card:hover {
+      border-color: var(--primary-color);
+    }
+    
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    
+    button {
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: var(--white);
+      box-shadow: 0 4px 15px var(--shadow-medium);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px var(--shadow-heavy);
+    }
+    
+    .btn-secondary {
+      background: linear-gradient(45deg, #6c757d, #868e96);
+      color: var(--white);
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+    }
+    
+    .preview-section {
+      background: var(--white);
+      border: 2px dashed #ddd;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin: 2rem 0;
+      min-height: 100px;
+    }
+    
+    .preview-title {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .output {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: var(--border-radius-small);
+      padding: 1.5rem;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      direction: ltr;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .output:hover {
+      border-color: var(--primary-color);
+      box-shadow: 0 4px 15px var(--shadow-light);
+    }
+    
+    .output::before {
+      content: "📋 اضغط للنسخ";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--accent-color);
+      color: var(--white);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-family: 'Cairo', sans-serif;
+    }
+    
+    .output:hover::before {
+      opacity: 1;
+    }
+    
+    .copied {
+      background: var(--gradient-secondary);
+      border-color: var(--primary-color);
+      color: var(--primary-dark);
+    }
+    
+    .copied::before {
+      content: "✅ تم النسخ!";
+      opacity: 1;
+      background: var(--primary-color);
+    }
+    
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 1rem 1.5rem;
+      border-radius: var(--border-radius-small);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+    
+    .toast.show {
+      transform: translateX(0);
+    }
+    
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .container1 {
+        padding: 1rem;
+        margin: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container1">
+    <p class="txt">🌟 أداة توليد القوائم التفاعلية المحسنة</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="listType">📝 نوع القائمة:</label>
+        <select id="listType" onchange="updatePreview()">
+          <option value="ul">نقطية (Bulleted)</option>
+          <option value="ol">رقمية (Numbered)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="listStyle">🎨 نمط القائمة:</label>
+        <select id="listStyle" onchange="updatePreview()">
+          <option value="modern">عصري</option>
+          <option value="classic">كلاسيكي</option>
+          <option value="minimal">مبسط</option>
+          <option value="gradient">متدرج</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="iconPicker">🖼️ أيقونة العلامة:</label>
+        <select id="iconPicker" onchange="updatePreview()">
+          <option value="none">بدون أيقونة</option>
+          <option value="✅">✅ علامة صح</option>
+          <option value="⭐">⭐ نجمة</option>
+          <option value="➡️">➡️ سهم</option>
+          <option value="🎯">🎯 هدف</option>
+          <option value="💡">💡 فكرة</option>
+          <option value="📌">📌 دبوس</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>🎨 لون العلامة:</label>
+        <div class="color-input-group">
+          <input id="colorPicker" onchange="updateColorFromPicker()" type="color" value="#13b981" />
+          <input id="color" onchange="updateColorFromText()" placeholder="#13b981" type="text" value="#13b981" />
+        </div>
+        <div class="preset-colors">
+          <div class="color-preset" onclick="setColor('#13b981')" style="background: #13b981;"></div>
+          <div class="color-preset" onclick="setColor('#059669')" style="background: #059669;"></div>
+          <div class="color-preset" onclick="setColor('#dc3545')" style="background: #dc3545;"></div>
+          <div class="color-preset" onclick="setColor('#fd7e14')" style="background: #fd7e14;"></div>
+          <div class="color-preset" onclick="setColor('#6f42c1')" style="background: #6f42c1;"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="spacing">📏 المسافات:</label>
+        <select id="spacing" onchange="updatePreview()">
+          <option value="normal">عادي</option>
+          <option value="compact">مضغوط</option>
+          <option value="spacious">واسع</option>
+        </select>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="items">📋 عناصر القائمة (كل عنصر في سطر):</label>
+        <textarea id="items" oninput="updatePreview()" placeholder="المهمة الأولى
+المهمة الثانية
+المهمة الثالثة
+المهمة الرابعة">المهمة الأولى
+المهمة الثانية
+المهمة الثالثة
+المهمة الرابعة</textarea>
+      </div>
+    </div>
+
+    <div class="options-grid">
+      <div class="option-card">
+        <div class="checkbox-group">
+          <input checked="" id="hoverEffect" onchange="updatePreview()" type="checkbox" />
+          <label for="hoverEffect">✨ تأثير الحوم</label>
+        </div>
+        <div class="checkbox-group">
+          <input checked="" id="animations" onchange="updatePreview()" type="checkbox" />
+          <label for="animations">🎬 الحركات المتقدمة</label>
+        </div>
+      </div>
+
+      <div class="option-card">
+        <div class="checkbox-group">
+          <input checked="" id="shadows" onchange="updatePreview()" type="checkbox" />
+          <label for="shadows">🌫️ الظلال</label>
+        </div>
+        <div class="checkbox-group">
+          <input checked="" id="rounded" onchange="updatePreview()" type="checkbox" />
+          <label for="rounded">⭕ الحواف المدورة</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="btn-primary" onclick="generateList()">✨ توليد الكود</button>
+      <button class="btn-secondary" onclick="clearAll()">🗑️ مسح الكل</button>
+    </div>
+
+    <div class="preview-section">
+      <div class="preview-title">👀 معاينة مباشرة</div>
+      <div id="preview"></div>
+    </div>
+
+    <div class="output" id="listOutput" onclick="copyToClipboard(this)" style="display: none;"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // --- (Helper functions: updateColorFromPicker, updateColorFromText, setColor) are unchanged ---
+    function updateColorFromPicker() {
+      document.getElementById('color').value = document.getElementById('colorPicker').value;
+      updatePreview();
+    }
+
+    function updateColorFromText() {
+      const color = document.getElementById('color').value;
+      if (/^#[0-9A-F]{6}$/i.test(color)) {
+        document.getElementById('colorPicker').value = color;
+        updatePreview();
+      }
+    }
+
+    function setColor(color) {
+      document.getElementById('color').value = color;
+      document.getElementById('colorPicker').value = color;
+      updatePreview();
+    }
+    
+    // --- updatePreview now generates CSS/HTML for a temporary preview class ---
+    function updatePreview() {
+      const type = document.getElementById("listType").value;
+      const style = document.getElementById("listStyle").value;
+      const color = document.getElementById("color").value;
+      const spacing = document.getElementById("spacing").value;
+      const items = document.getElementById("items").value.trim().split('\n').filter(item => item.trim());
+      const hoverEffect = document.getElementById("hoverEffect").checked;
+      const animations = document.getElementById("animations").checked;
+      const shadows = document.getElementById("shadows").checked;
+      const rounded = document.getElementById("rounded").checked;
+      const icon = document.getElementById("iconPicker").value;
+
+      if (items.length === 0) {
+        document.getElementById("preview").innerHTML = "<p style='color: #999; text-align: center;'>أدخل عناصر القائمة لرؤية المعاينة</p>";
+        return;
+      }
+      
+      // Use a consistent class for the live preview only
+      const previewClassName = 'live-preview-list';
+      const css = generateCSS(type, style, color, spacing, hoverEffect, animations, shadows, rounded, icon, previewClassName);
+      const html = generateHTML(type, items, previewClassName);
+
+      document.getElementById("preview").innerHTML = `<style>${css}</style>${html}`;
+    }
+
+    // --- generateCSS now accepts a unique className parameter ---
+    function generateCSS(type, style, color, spacing, hoverEffect, animations, shadows, rounded, icon, className) {
+      let spacingValues = {
+        compact: { margin: '5px', padding: '8px 12px' },
+        normal: { margin: '10px', padding: '12px 15px' },
+        spacious: { margin: '15px', padding: '15px 20px' }
+      };
+      let currentSpacing = spacingValues[spacing];
+      
+      let styleProperties = {
+        modern: { background: 'var(--secondary-color, #f0fdf7)', border: `border-right: 3px solid ${color}30;`, borderRadius: 'var(--border-radius-small, 12px)', boxShadow: '0 2px 8px rgba(19, 185, 129, 0.1)', hoverBg: color + '20' },
+        classic: { background: 'var(--white, #ffffff)', border: `border: 1px solid ${color}40;`, borderRadius: '4px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', hoverBg: color + '15' },
+        minimal: { background: 'transparent', border: `border-bottom: 1px solid ${color}30;`, borderRadius: '0px', boxShadow: 'none', hoverBg: color + '10' },
+        gradient: { background: `linear-gradient(45deg, ${color}20, ${color}10)`, border: `border-right: 3px solid ${color};`, borderRadius: 'var(--border-radius, 20px)', boxShadow: '0 4px 12px rgba(19, 185, 129, 0.2)', hoverBg: `linear-gradient(45deg, ${color}30, ${color}20)` }
+      };
+      let currentStyle = styleProperties[style] || styleProperties.modern;
+      
+      // The counter name is now also unique to the class
+      const counterName = `${className}-counter`;
+
+      let css = `
+        .${className}, .${className} li { list-style: none !important; margin: 0; padding: 0; }
+        .${className} { ${type === 'ol' ? `counter-reset: ${counterName};` : ''} }
+        .${className} li { 
+          position: relative; 
+          background: ${currentStyle.background};
+          margin-bottom: ${currentSpacing.margin};
+          padding: ${currentSpacing.padding};
+          padding-right: 3.5rem;
+          ${rounded ? `border-radius: ${currentStyle.borderRadius};` : 'border-radius: 4px;'}
+          ${shadows && currentStyle.boxShadow !== 'none' ? `box-shadow: ${currentStyle.boxShadow};` : ''}
+          ${animations ? 'transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);' : 'transition: background 0.3s;'}
+          ${currentStyle.border}
+        }`;
+
+      if (hoverEffect) {
+        css += `
+          .${className} li:hover { 
+            background: ${currentStyle.hoverBg};
+            transform: ${animations ? (style === 'minimal' ? 'translateX(-3px)' : 'translateX(-5px) scale(1.02)') : 'none'};
+            ${shadows && style !== 'minimal' ? `box-shadow: 0 4px 15px rgba(19, 185, 129, 0.25);` : ''}
+            ${style === 'classic' ? `border-color: ${color};` : ''}
+            ${style === 'minimal' ? `border-bottom-color: ${color};` : ''}
+          }`;
+      }
+
+      const hasIcon = icon && icon !== 'none';
+      if (hasIcon) {
+        css += `
+          .${className} li::before { 
+            content: '${icon}'; position: absolute; right: 1rem; top: 50%; 
+            transform: translateY(-50%); color: ${color}; font-size: 1.4rem;
+            width: 2rem; height: 2rem; display: flex; align-items: center;
+            justify-content: center; background: transparent;
+            ${animations ? 'transition: all 0.3s ease;' : ''}
+          }`;
+        if (hoverEffect && animations) {
+          css += `.${className} li:hover::before { transform: translateY(-50%) scale(1.25) rotate(-5deg); }`;
+        }
+      } else if (type === 'ol') {
+        let numberStyles = {
+          modern: { background: color, color: 'white', border: 'none', size: '2rem' },
+          classic: { background: 'white', color: color, border: `2px solid ${color}`, size: '1.8rem' },
+          minimal: { background: 'transparent', color: color, border: `1px solid ${color}`, size: '1.6rem' },
+          gradient: { background: `linear-gradient(135deg, ${color}, var(--accent-color, #059669))`, color: 'white', border: 'none', size: '2.2rem' }
+        };
+        let numberStyle = numberStyles[style] || numberStyles.modern;
+        css += `
+          .${className} li { counter-increment: ${counterName}; }
+          .${className} li::before { 
+            content: counter(${counterName}); 
+            position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); 
+            background: ${numberStyle.background}; color: ${numberStyle.color}; 
+            width: ${numberStyle.size}; height: ${numberStyle.size}; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: bold; font-size: 0.9rem;
+            ${numberStyle.border !== 'none' ? `border: ${numberStyle.border};` : ''}
+            ${animations ? 'transition: all 0.3s ease;' : ''}
+            ${shadows && style !== 'minimal' ? `box-shadow: 0 2px 8px ${color}50;` : ''}
+          }`;
+        if (hoverEffect) {
+          let hoverNumberStyles = {
+            modern: `background: white; color: ${color}; border: 2px solid ${color};`,
+            classic: `background: ${color}; color: white; border: 2px solid ${color};`,
+            minimal: `background: ${color}; color: white; border: 1px solid ${color};`,
+            gradient: `background: white; color: ${color}; border: 2px solid ${color};`
+          };
+          css += `
+            .${className} li:hover::before { 
+              ${hoverNumberStyles[style] || hoverNumberStyles.modern}
+              ${animations ? `transform: translateY(-50%) scale(${style === 'minimal' ? '1.1' : '1.15'}) rotate(5deg);` : ''}
+            }`;
+        }
+      } else { 
+        let bulletStyles = {
+          modern: { background: color, size: '0.8rem', border: 'none' },
+          classic: { background: 'white', size: '0.6rem', border: `2px solid ${color}` },
+          minimal: { background: color, size: '0.4rem', border: 'none' },
+          gradient: { background: `linear-gradient(135deg, ${color}, var(--accent-color, #059669))`, size: '1rem', border: 'none' }
+        };
+        let bulletStyle = bulletStyles[style] || bulletStyles.modern;
+        css += `
+          .${className} li::before { 
+            content: ''; position: absolute; right: 1.2rem; top: 50%; 
+            transform: translateY(-50%); background: ${bulletStyle.background}; 
+            width: ${bulletStyle.size}; height: ${bulletStyle.size}; border-radius: 50%; 
+            ${bulletStyle.border !== 'none' ? `border: ${bulletStyle.border};` : ''}
+            ${animations ? 'transition: all 0.3s ease;' : ''}
+            ${shadows && style !== 'minimal' ? `box-shadow: 0 2px 4px ${color}40;` : ''}
+          }`;
+        if (hoverEffect) {
+          let hoverBulletStyles = {
+            modern: `background: white; border: 2px solid ${color};`,
+            classic: `background: ${color}; border: 2px solid ${color};`,
+            minimal: `background: white; border: 1px solid ${color};`,
+            gradient: `background: white; border: 2px solid ${color};`
+          };
+          css += `
+            .${className} li:hover::before { 
+              ${hoverBulletStyles[style] || hoverBulletStyles.modern}
+              ${animations ? `transform: translateY(-50%) scale(${style === 'gradient' ? '1.4' : '1.3'});` : ''}
+            }`;
+        }
+      }
+      return css;
+    }
+
+    // --- generateHTML now accepts a unique className parameter ---
+    function generateHTML(type, items, className) {
+      const tag = type === 'ol' ? 'ol' : 'ul';
+      let html = `<${tag} class="${className}">\n`;
+      items.forEach(item => {
+        html += `  <li>${item.trim()}</li>\n`;
+      });
+      html += `</${tag}>`;
+      return html;
+    }
+
+    // --- generateList now creates a UNIQUE className for the final output ---
+    function generateList() {
+      const type = document.getElementById("listType").value;
+      const style = document.getElementById("listStyle").value;
+      const color = document.getElementById("color").value;
+      const spacing = document.getElementById("spacing").value;
+      const items = document.getElementById("items").value.trim().split('\n').filter(item => item.trim());
+      const hoverEffect = document.getElementById("hoverEffect").checked;
+      const animations = document.getElementById("animations").checked;
+      const shadows = document.getElementById("shadows").checked;
+      const rounded = document.getElementById("rounded").checked;
+      const icon = document.getElementById("iconPicker").value;
+
+      if (!color || items.length === 0) {
+        showToast("⚠️ الرجاء إدخال عناصر القائمة ولون العلامة.", "warning");
+        return;
+      }
+      
+      // *** THE FIX: Generate a unique class name for each list ***
+      const uniqueClassName = 'custom-list-' + Date.now().toString(36) + Math.random().toString(36).substring(2, 7);
+
+      const css = generateCSS(type, style, color, spacing, hoverEffect, animations, shadows, rounded, icon, uniqueClassName);
+      const html = generateHTML(type, items, uniqueClassName);
+      
+      const fullCode = `<style>\n${css}\n</style>\n\n${html}`;
+
+      const output = document.getElementById("listOutput");
+      output.textContent = fullCode;
+      output.style.display = "block";
+      output.classList.remove("copied");
+      output.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // --- FIXED copyToClipboard function ---
+    function copyToClipboard(el) {
+        const textToCopy = el.textContent || el.innerText;
+
+        // navigator.clipboard.writeText returns a promise. We should handle its failure.
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            // SUCCESS
+            el.classList.add("copied");
+            showToast("✅ تم نسخ الكود بنجاح!", "success");
+            setTimeout(() => {
+                el.classList.remove("copied");
+            }, 3000);
+        }).catch(err => {
+            // FAILURE - This is where we run the fallback
+            console.warn("navigator.clipboard.writeText() failed. Using fallback. Error:", err);
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // Prevent scrolling to bottom of page in MS Edge.
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            // Make the textarea invisible.
+            textArea.style.width = '1px';
+            textArea.style.height = '1px';
+            textArea.style.padding = 0;
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            textArea.style.background = 'transparent';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                el.classList.add("copied");
+                showToast("تم نسخ الكود بنجاح!", "success");
+                setTimeout(() => {
+                    el.classList.remove("copied");
+                }, 3000);
+            } catch (execErr) {
+                showToast("فشل في النسخ. حاول مرة أخرى.", "error");
+                console.error("Fallback copy failed", execErr);
+            }
+            document.body.removeChild(textArea);
+        });
+    }
+
+    function clearAll() {
+      document.getElementById("items").value = "";
+      document.getElementById("color").value = "#13b981";
+      document.getElementById("colorPicker").value = "#13b981";
+      document.getElementById("listType").value = "ul";
+      document.getElementById("listStyle").value = "modern";
+      document.getElementById("spacing").value = "normal";
+      document.getElementById("iconPicker").value = "none";
+      document.getElementById("hoverEffect").checked = true;
+      document.getElementById("animations").checked = true;
+      document.getElementById("shadows").checked = true;
+      document.getElementById("rounded").checked = true;
+      document.getElementById("listOutput").style.display = "none";
+      updatePreview();
+      showToast("🗑️ تم مسح جميع البيانات", "info");
+    }
+
+    function showToast(message, type = "info") {
+      const toast = document.getElementById("toast");
+      const colors = {
+        success: "var(--primary-color, #13b981)",
+        warning: "#ffc107",
+        error: "#dc3545",
+        info: "var(--text-light, #6b7280)"
+      };
+      toast.textContent = message;
+      toast.style.background = colors[type] || colors.info;
+      toast.classList.add("show");
+      setTimeout(() => { toast.classList.remove("show"); }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', updatePreview);
+  </script>
+</body>
+</html>
