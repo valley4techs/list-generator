@@ -191,8 +191,8 @@ List Generator/
 ## 📧 التواصل
 
 للأسئلة أو الاستفسارات:
-- **الموقع**: [Valley4Techs](https://www.valley4techs.com)
-- **البريد الإلكتروني**: [info@valley4techs.com](mailto:info@valley4techs.com)
+- **الموقع**: [وادي التكنولوجيا](https://www.valley4techs.com)
+- **المراسلة الفورية**: [واتساب](https://wa.me/00201033422426)
 
 ## 📄 الترخيص
 
@@ -206,10 +206,10 @@ List Generator/
 
 ## 📊 إحصائيات
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/list-generator?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/list-generator?style=social)
-![GitHub issues](https://img.shields.io/github/issues/yourusername/list-generator)
-![GitHub license](https://img.shields.io/github/license/yourusername/list-generator)
+![GitHub stars](https://img.shields.io/github/stars/valley4techs/list-generator?style=social)
+![GitHub forks](https://img.shields.io/github/forks/valley4techs/list-generator?style=social)
+![GitHub issues](https://img.shields.io/github/issues/valley4techs/list-generator)
+![GitHub license](https://img.shields.io/github/license/valley4techs/list-generator)
 
 ---
 
