@@ -214,5 +214,5 @@ List Generator/
 ---
 
 <div align="center">
-صنع بـ ❤️ من قبل <a href="https://www.valley4techs.com">Valley4Techs</a>
+صنع بـ ❤️ من قبل <a href="https://www.valley4techs.com">وادي التكنولوجيا</a>
 </div>
